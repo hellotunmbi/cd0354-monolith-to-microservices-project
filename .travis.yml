@@ -21,10 +21,6 @@ script:
   - docker tag udagram-api "$DOCKER_USERNAME"/udagram-api:v1
   - docker tag udagram-frontend "$DOCKER_USERNAME"/udagram-frontend:v1
 
-
-  docker tag udagram-api-feed sudkul/udagram-api-feed:v1
-
-
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push YOUR_DOCKER_HUB/simple-node
+  - docker-compose -f docker-compose-build.yaml push
