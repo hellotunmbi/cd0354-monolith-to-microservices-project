@@ -16,15 +16,16 @@ before_script:
 script:
   - docker --version # print the version for logging
   - docker-compose -f docker-compose-build.yaml build --parallel
-  - docker tag udagram-api-feed hellotunmbi/udagram-api-feed:v2
-  - docker tag udagram-api-user hellotunmbi/udagram-api-user:v2
-  - docker tag udagram-api hellotunmbi/udagram-api:v2
-  - docker tag udagram-frontend hellotunmbi/udagram-frontend:v2
+  - docker images # show me the images list for debugging sake
+  - docker tag udagram-api-feed $DOCKER_USERNAME/udagram-api-feed:v2
+  - docker tag udagram-api-user $DOCKER_USERNAME/udagram-api-user:v2
+  - docker tag udagram-api $DOCKER_USERNAME/udagram-api:v2
+  - docker tag udagram-frontend $DOCKER_USERNAME/udagram-frontend:v2
 
 after_success:
-  - echo $DOCKER_PASSWORD | docker login -u hellotunmbi --password-stdin
+  - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
   #- docker-compose -f docker-compose-build.yaml push
-  - docker push hellotunmbi/udagram-api-feed:v2
-  - docker push hellotunmbi/udagram-api-user:v2
-  - docker push hellotunmbi/udagram-api:v2
-  - docker push hellotunmbi/udagram-frontend:v2
+  - docker push $DOCKER_USERNAME/udagram-api-feed:v2
+  - docker push $DOCKER_USERNAME/udagram-api-user:v2
+  - docker push $DOCKER_USERNAME/udagram-api:v2
+  - docker push $DOCKER_USERNAME/udagram-frontend:v2
