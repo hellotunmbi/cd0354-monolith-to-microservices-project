@@ -13,9 +13,17 @@ spec:
     metadata:
       labels:
         app: frontend
+        api: external
     spec:
       containers:
-        - name: frontend
-          image: hellotunmbi/udagram-frontend:v5
+        - image: hellotunmbi/udagram-frontend:v5
+          name: frontend
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: "512m"
+            limits:
+              cpu: "512m"
+      restartPolicy: Always
